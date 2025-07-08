@@ -22,7 +22,7 @@ public class AdminController {
 	public String contacts(Model model) {
         List<ContactsDto> contacts = contactService.getContactList();
         model.addAttribute("contactList", contacts);
-        return "contactList"; // templates/contacts.html
+        return "contactList"; 
     }
 
 }
