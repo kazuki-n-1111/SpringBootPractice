@@ -11,5 +11,7 @@ public interface ContactService {
 	void saveContact(ContactForm contactForm);
 	
 	List<ContactsDto> getContactList();
+	
+	ContactsDto findDetails(Long id);
 
 }

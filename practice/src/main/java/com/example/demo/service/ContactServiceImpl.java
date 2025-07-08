@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import com.example.demo.entity.Contact;
 import com.example.demo.form.ContactForm;
 import com.example.demo.repository.ContactRepository;
 import com.example.demo.service.dto.ContactsDto;
+
+import jakarta.persistence.EntityNotFoundException;
+
 
 @Service
 public class ContactServiceImpl implements ContactService {
@@ -45,8 +49,41 @@ public class ContactServiceImpl implements ContactService {
                         e.getFirstName(),
                         e.getContactType(),
                         e.getCreatedAt(),
-                        e.getUpdatedAt()))
+                        e.getUpdatedAt(),
+                        e.getEmail(), // 追記
+                        e.getPhone(),
+                        e.getZipCode(),
+                        e.getAddress(),
+                        e.getBuildingName(),
+                        e.getBody()))
                 .collect(Collectors.toList());
     }
+	@Override
+	public ContactsDto findDetails(Long id) {
+		Optional<Contact> contactdetails = contactRepository.findById(id);
+		if(contactdetails.isPresent()) {
+			Contact c = contactdetails.get();
+			ContactsDto details = new ContactsDto(
+					c.getId(),
+                    c.getLastName(),
+                    c.getFirstName(),
+                    c.getContactType(),
+                    c.getCreatedAt(),
+                    c.getUpdatedAt(),
+                    c.getEmail(), // 追記
+                    c.getPhone(),
+                    c.getZipCode(),
+                    c.getAddress(),
+                    c.getBuildingName(),
+                    c.getBody()
+			);
+			return details;
+			
+		}else {
+			throw new EntityNotFoundException("指定されたIDのデータは見つかりませんでした: " + id);
+		}
+		
+	}
+	
 
 }
