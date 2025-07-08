@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Contact;
 import com.example.demo.form.ContactForm;
 import com.example.demo.repository.ContactRepository;
-
+import com.example.demo.service.dto.ContactsDto;
 
 @Service
 public class ContactServiceImpl implements ContactService {
@@ -32,5 +35,18 @@ public class ContactServiceImpl implements ContactService {
 		
 		contactRepository.save(contact);
 	}
+	
+	@Override
+    public List<ContactsDto> getContactList() {
+        return contactRepository.findAll().stream()
+                .map(e -> new ContactsDto(
+                        e.getId(),
+                        e.getLastName(),
+                        e.getFirstName(),
+                        e.getContactType(),
+                        e.getCreatedAt(),
+                        e.getUpdatedAt()))
+                .collect(Collectors.toList());
+    }
 
 }
