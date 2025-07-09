@@ -12,6 +12,6 @@ public interface ContactService {
 	
 	List<ContactsDto> getContactList();
 	
-	ContactsDto findDetails(Long id);
+	List<ContactsDto> findDetails(Long id);
 
 }

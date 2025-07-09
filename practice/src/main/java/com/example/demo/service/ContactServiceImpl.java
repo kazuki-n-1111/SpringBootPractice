@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Contact;
+import com.example.demo.entity.ContactDetail;
 import com.example.demo.form.ContactForm;
 import com.example.demo.repository.ContactRepository;
+// 追記
+import com.example.demo.repository.DetailRepository;
 import com.example.demo.service.dto.ContactsDto;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -20,6 +23,9 @@ public class ContactServiceImpl implements ContactService {
 	
 	@Autowired
 	private ContactRepository contactRepository;
+	
+	@Autowired
+	private DetailRepository detailRepository;
 
 	@Override
 	public void saveContact(ContactForm contactForm) {
@@ -42,7 +48,8 @@ public class ContactServiceImpl implements ContactService {
 	
 	@Override
     public List<ContactsDto> getContactList() {
-        return contactRepository.findAll().stream()
+		
+        return detailRepository.findAll().stream()
                 .map(e -> new ContactsDto(
                         e.getId(),
                         e.getLastName(),
@@ -58,31 +65,33 @@ public class ContactServiceImpl implements ContactService {
                         e.getBody()))
                 .collect(Collectors.toList());
     }
+	
+	
 	@Override
-	public ContactsDto findDetails(Long id) {
-		Optional<Contact> contactdetails = contactRepository.findById(id);
+	public List<ContactsDto> findDetails(Long id) {
+		
+		Optional<ContactDetail> contactdetails = detailRepository.findById(id);
 		if(contactdetails.isPresent()) {
-			Contact c = contactdetails.get();
-			ContactsDto details = new ContactsDto(
-					c.getId(),
-                    c.getLastName(),
-                    c.getFirstName(),
-                    c.getContactType(),
-                    c.getCreatedAt(),
-                    c.getUpdatedAt(),
-                    c.getEmail(), // 追記
-                    c.getPhone(),
-                    c.getZipCode(),
-                    c.getAddress(),
-                    c.getBuildingName(),
-                    c.getBody()
-			);
-			return details;
 			
+			return detailRepository.findById(id).stream()
+					.map(e -> new ContactsDto(
+							e.getId(),
+							e.getLastName(),
+							e.getFirstName(),
+							e.getContactType(),
+							e.getCreatedAt(),
+							e.getUpdatedAt(),
+							e.getEmail(),
+							e.getPhone(),
+							e.getZipCode(),
+							e.getAddress(),
+							e.getBuildingName(),
+							e.getBody()))
+					.collect(Collectors.toList());
+
 		}else {
 			throw new EntityNotFoundException("指定されたIDのデータは見つかりませんでした: " + id);
 		}
-		
 	}
 	
 

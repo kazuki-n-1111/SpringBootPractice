@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ import lombok.Data;
 @Data
 @Table(name="contacts")
 
-public class Contact {
+public class ContactDetail {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -46,5 +48,11 @@ public class Contact {
 	
 	@Column(name="body", nullable=false)
 	private String body;
+	
+	@Column(name="created_at", nullable=false)
+	private LocalDateTime createdAt;
+	
+	@Column(name="updated_at", nullable=false)
+	private LocalDateTime updatedAt;
 	
 }

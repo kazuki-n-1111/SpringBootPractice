@@ -32,7 +32,7 @@ public class AdminController {
 	// 課題2
 	@GetMapping("/admin/contacts/{id}")
 	public String contactdetail(@PathVariable Long id, Model model) {
-		ContactsDto detail = contactService.findDetails(id); 
+		List<ContactsDto> detail = contactService.findDetails(id); 
         model.addAttribute("contactDetails", detail);
         return "contactDetails"; 
     }
