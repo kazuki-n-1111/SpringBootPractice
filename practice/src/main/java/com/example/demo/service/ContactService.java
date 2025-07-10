@@ -13,6 +13,8 @@ public interface ContactService {
 	
 	List<ContactsDto> getContactList();
 	
+	Contact checkId(Long id);
+	
 	List<ContactsDto> findDetails(Long id);
 	
 	Contact getDetails(Long id, ContactForm contactForm);

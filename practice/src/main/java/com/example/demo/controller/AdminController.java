@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.entity.Contact;
 import com.example.demo.form.ContactForm;
 // 追記
 import com.example.demo.repository.ContactRepository;
@@ -48,6 +49,12 @@ public class AdminController {
 	@GetMapping("/admin/contacts/{id}/edit")
 	public String contactEdit(@PathVariable Long id, Model model) {
 		model.addAttribute("id", id);
+		
+		// 編集しようとしているidが存在しているかのチェック
+		Contact checkid = contactService.checkId(id);
+		
+		// 存在していたらそのidをビューに渡す。
+		model.addAttribute("id", checkid.getId());
 		model.addAttribute("contactForm", new ContactForm());
 			
 		return "contactEdit";

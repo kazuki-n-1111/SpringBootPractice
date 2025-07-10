@@ -93,6 +93,14 @@ public class ContactServiceImpl implements ContactService {
 		}
 	}
 	
+	@Override
+	public Contact checkId(Long id) {
+		
+		return contactRepository.findById(id)
+			.orElseThrow(()  -> new EntityNotFoundException("指定されたIDのデータは見つかりませんでした: " + id));
+		
+	}
+	
 	
 	@Override
 	public Contact getDetails(Long id, ContactForm contactForm) {
