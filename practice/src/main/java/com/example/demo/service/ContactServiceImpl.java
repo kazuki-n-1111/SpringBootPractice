@@ -70,8 +70,8 @@ public class ContactServiceImpl implements ContactService {
 	@Override
 	public List<ContactsDto> findDetails(Long id) {
 		
-		Optional<ContactDetail> contactdetails = detailRepository.findById(id);
-		if(contactdetails.isPresent()) {
+		Optional<ContactDetail> contactDetails = detailRepository.findById(id);
+		if(contactDetails.isPresent()) {
 			
 			return detailRepository.findById(id).stream()
 					.map(e -> new ContactsDto(
@@ -92,6 +92,55 @@ public class ContactServiceImpl implements ContactService {
 		}else {
 			throw new EntityNotFoundException("指定されたIDのデータは見つかりませんでした: " + id);
 		}
+	}
+	
+	
+	@Override
+	public Contact getDetails(Long id, ContactForm contactForm) {
+		
+		Contact contact = contactRepository.findById(id).orElse(null);
+		
+		contact.setId(contact.getId());
+		contact.setLastName(contactForm.getLastName());
+		contact.setFirstName(contactForm.getFirstName());
+		contact.setEmail(contactForm.getEmail());
+		contact.setPhone(contactForm.getPhone());
+		contact.setZipCode(contactForm.getZipCode());
+		contact.setAddress(contactForm.getAddress());
+		contact.setBuildingName(contactForm.getBuildingName());
+		contact.setContactType(contactForm.getContactType());
+		contact.setBody(contactForm.getBody());
+		
+		contactRepository.save(contact);
+		
+		return contact;
+			
+	}
+	
+	
+	@Override
+	// public ContactsDto deliteDetails(Long id, ContactsDto contactsDto) {
+	public void deleteDetails(Long id) {
+		
+//		ContactsDto deliteContact = contactRepository.findById(id).orElse(null);
+//		
+//		deliteContact.setId(contact.getId());
+//		deliteContact.setLastName(contactForm.getLastName());
+//		deliteContact.setFirstName(contactForm.getFirstName());
+//		deliteContact.setEmail(contactForm.getEmail());
+//		deliteContact.setPhone(contactForm.getPhone());
+//		deliteContact.setZipCode(contactForm.getZipCode());
+//		deliteContact.setAddress(contactForm.getAddress());
+//		deliteContact.setBuildingName(contactForm.getBuildingName());
+//		contact.setContactType(contactForm.getContactType());
+//		contact.setBody(contactForm.getBody());
+//		
+//		contactRepository.save(contact);
+//		
+//		return contact;
+		
+		contactRepository.deleteById(id);
+			
 	}
 	
 

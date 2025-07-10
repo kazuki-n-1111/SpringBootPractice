@@ -40,6 +40,22 @@ public class ContactsDto {
 		
 	}
 	
+	public ContactsDto(Long id, String lastName, String firstName, String contactType,String email, String phone, String zipCode, String address, String buildingName, String body) {
+		
+		super();
+		this.id = id;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.contactType = contactType;
+		this.email = email;
+		this.phone = phone;
+		this.zipCode = zipCode;
+		this.address = address;
+		this.buildingName = buildingName;
+		this.body = body;
+		
+	}
+	
 	public Long getId() {
 		
 		return id;
