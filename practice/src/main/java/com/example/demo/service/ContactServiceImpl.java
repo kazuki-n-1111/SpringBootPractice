@@ -29,7 +29,6 @@ public class ContactServiceImpl implements ContactService {
 
 	@Override
 	public void saveContact(ContactForm contactForm) {
-		// TODO 自動生成されたメソッド・スタブ
 		
 		Contact contact = new Contact();
 		
@@ -119,25 +118,7 @@ public class ContactServiceImpl implements ContactService {
 	
 	
 	@Override
-	// public ContactsDto deliteDetails(Long id, ContactsDto contactsDto) {
 	public void deleteDetails(Long id) {
-		
-//		ContactsDto deliteContact = contactRepository.findById(id).orElse(null);
-//		
-//		deliteContact.setId(contact.getId());
-//		deliteContact.setLastName(contactForm.getLastName());
-//		deliteContact.setFirstName(contactForm.getFirstName());
-//		deliteContact.setEmail(contactForm.getEmail());
-//		deliteContact.setPhone(contactForm.getPhone());
-//		deliteContact.setZipCode(contactForm.getZipCode());
-//		deliteContact.setAddress(contactForm.getAddress());
-//		deliteContact.setBuildingName(contactForm.getBuildingName());
-//		contact.setContactType(contactForm.getContactType());
-//		contact.setBody(contactForm.getBody());
-//		
-//		contactRepository.save(contact);
-//		
-//		return contact;
 		
 		contactRepository.deleteById(id);
 			

@@ -17,6 +17,6 @@ public interface ContactService {
 	
 	Contact getDetails(Long id, ContactForm contactForm);
 	
-	// ContactsDto deliteDetails(Long id, ContactsDto contactsDto);
+	// ContactsDto deleteDetails(Long id, ContactsDto contactsDto);
 	void deleteDetails(Long id);
 }

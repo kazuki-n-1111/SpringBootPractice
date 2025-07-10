@@ -56,6 +56,10 @@ public class ContactsDto {
 		
 	}
 	
+	public ContactsDto() {
+		super();
+	}
+	
 	public Long getId() {
 		
 		return id;

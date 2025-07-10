@@ -53,20 +53,22 @@ public class AdminController {
 		return "contactEdit";
 	}
 		
-	@PostMapping("/admin/contacts/{id}/edit")
+	@PostMapping("/admin/contacts/{id}/update")
 	public String contactEdit(@Validated @PathVariable Long id, Model model, @ModelAttribute("contactForm") ContactForm contactForm, BindingResult errorResult,ContactsDto contactsDto) {
 		if(errorResult.hasErrors()) {
 			return "contactEdit";
 		}
 		// 更新情報をcontactFormに入れる
-		model.addAttribute("contactForm", contactForm);
+		//model.addAttribute("contactForm", contactForm);
 		
 		contactService.getDetails(id, contactForm);
-		
-		// 削除情報をdeliteContactに入れる
-		// model.addAttribute("deliteContact", contactsDto);
-		
-		// contactService.deliteDetails(id, contactsDto);
+			
+		// 管理者詳細画面へリダイレクト
+		return "redirect:/admin/contacts/" + id;
+	}
+	
+	@PostMapping("/admin/contacts/{id}/delete")
+	public String deleteEdit(@PathVariable Long id) {
 		
 		contactService.deleteDetails(id);
 			
