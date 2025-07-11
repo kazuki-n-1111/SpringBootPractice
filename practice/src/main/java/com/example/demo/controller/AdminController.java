@@ -51,11 +51,12 @@ public class AdminController {
 		model.addAttribute("id", id);
 		
 		// 編集しようとしているidが存在しているかのチェック
-		Contact checkid = contactService.checkId(id);
+		Contact contact = contactService.checkId(id);
 		
-		// 存在していたらそのidをビューに渡す。
-		model.addAttribute("id", checkid.getId());
-		model.addAttribute("contactForm", new ContactForm());
+		// 存在していたらその内容をビューに渡す。
+		//model.addAttribute("id", checkid.getId());
+		model.addAttribute("contactForm", contact);
+		//model.addAttribute("contactForm", new ContactForm());
 			
 		return "contactEdit";
 	}
