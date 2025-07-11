@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.entity.Contact;
 import com.example.demo.form.ContactForm;
 // 追記
-import com.example.demo.repository.ContactRepository;
 import com.example.demo.service.ContactService;
 import com.example.demo.service.dto.ContactsDto;
 
@@ -25,9 +24,6 @@ public class AdminController {
 	
 	@Autowired
 	private ContactService contactService;
-	
-	@Autowired
-	private ContactRepository contactRepository;
 	
 	@GetMapping("/admin/contacts")
 	public String contacts(Model model) {
@@ -48,15 +44,12 @@ public class AdminController {
 	// 管理者編集画面
 	@GetMapping("/admin/contacts/{id}/edit")
 	public String contactEdit(@PathVariable Long id, Model model) {
-		model.addAttribute("id", id);
 		
 		// 編集しようとしているidが存在しているかのチェック
 		Contact contact = contactService.checkId(id);
 		
 		// 存在していたらその内容をビューに渡す。
-		//model.addAttribute("id", checkid.getId());
 		model.addAttribute("contactForm", contact);
-		//model.addAttribute("contactForm", new ContactForm());
 			
 		return "contactEdit";
 	}
@@ -66,8 +59,6 @@ public class AdminController {
 		if(errorResult.hasErrors()) {
 			return "contactEdit";
 		}
-		// 更新情報をcontactFormに入れる
-		//model.addAttribute("contactForm", contactForm);
 		
 		contactService.getDetails(id, contactForm);
 			
