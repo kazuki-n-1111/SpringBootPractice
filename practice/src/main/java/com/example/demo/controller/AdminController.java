@@ -134,6 +134,5 @@ public class AdminController {
 	public String signOut(Model model) {
 		// サインアウトしたらサインイン画面へリダイレクト
 		return "redirect:/admin/signin";
-    }
-
+	}
 }
