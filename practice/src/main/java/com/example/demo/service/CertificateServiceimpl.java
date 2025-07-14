@@ -61,12 +61,5 @@ public class CertificateServiceimpl implements CertificateService {
 			throw new IllegalStateException("このメールアドレスは登録がありません。");
 		}
 	}
-	
-//	@Override
-//	public void certificateAccount(SignInForm signIn) {
-//		
-//		// メールでfindByしてきて存在するか確認
-//		
-//	}
 
 }

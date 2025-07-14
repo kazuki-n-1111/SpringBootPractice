@@ -7,8 +7,6 @@ public interface CertificateService {
 	
 	void saveAdminInfo(SignUpForm signUp);
 	
-	//void certificateAccount(SignInForm signIn);
-	
 	SignUpForm checkEmail(SignUpForm signUp);
 	
 	SignInForm certificateAccount(SignInForm signIn);

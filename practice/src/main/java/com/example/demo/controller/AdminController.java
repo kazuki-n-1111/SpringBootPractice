@@ -125,10 +125,7 @@ public class AdminController {
 			return "signIn";
 		}
 		
-		//SignInForm signInForm = certificateService.checkEmail(signIn);
 		certificateService.certificateAccount(signIn);
-		// ログイン処理を書く
-		//certificateService.certificateAccount(signIn);
 		
 		return "redirect:/admin/contacts";
 	}
