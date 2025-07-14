@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.Contact;
 import com.example.demo.form.ContactForm;
-// 追記
+import com.example.demo.form.SignInForm;
+import com.example.demo.form.SignUpForm;
+import com.example.demo.service.CertificateService;
 import com.example.demo.service.ContactService;
 import com.example.demo.service.dto.ContactsDto;
 
@@ -24,6 +26,9 @@ public class AdminController {
 	
 	@Autowired
 	private ContactService contactService;
+	
+	@Autowired
+	private CertificateService certificateService;
 	
 	@GetMapping("/admin/contacts")
 	public String contacts(Model model) {
@@ -76,5 +81,56 @@ public class AdminController {
 	}
 	
 	
+	
+	// 課題３
+	// 管理者の新規登録画面
+	@GetMapping("/admin/signup")
+	public String signUp(Model model) {
+		
+		model.addAttribute("signUpForm", new SignUpForm());
+		
+		return "signUp";
+	}
+	
+	@PostMapping("/admin/signup")
+	public String signUp(@Validated @ModelAttribute("singUpForm") SignUpForm signUp, Model model, BindingResult errorResult) {
+		
+		// エラーがなければ
+		if(errorResult.hasErrors()) {
+			return "signUp";
+		}
+		// emailに重複がないか確認
+		SignUpForm signUpForm = certificateService.checkEmail(signUp); 
+		
+		// 登録処理を書く
+		certificateService.saveAdminInfo(signUpForm);
+		
+		return "redirect:/admin/signin";
+	}
+	
+	// 管理者のログイン画面
+	@GetMapping("/admin/signin")
+	public String signIn(Model model) {
+		
+		model.addAttribute("signInForm", new SignInForm());
+		
+		return "signIn";
+	}
+	
+	@PostMapping("/admin/signin")
+	public String signIn(@Validated @ModelAttribute("singInForm") SignInForm signIn, Model model, BindingResult errorResult) {
+		
+		// エラーがなければ
+		if(errorResult.hasErrors()) {
+			return "signIn";
+		}
+		
+		//SignInForm signInForm = certificateService.checkEmail(signIn);
+		certificateService.certificateAccount(signIn);
+		// ログイン処理を書く
+		//certificateService.certificateAccount(signIn);
+		
+		return "redirect:/admin/contacts";
+	}
 
 }
