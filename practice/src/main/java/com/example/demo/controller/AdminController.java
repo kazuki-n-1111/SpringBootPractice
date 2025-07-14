@@ -132,5 +132,10 @@ public class AdminController {
 		
 		return "redirect:/admin/contacts";
 	}
+	
+	@PostMapping("/admin/signout")
+	public String signOut(Model model) {
+        return "redirect:/admin/signin"; 
+    }
 
 }
