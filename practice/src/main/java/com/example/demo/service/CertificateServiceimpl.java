@@ -21,7 +21,7 @@ public class CertificateServiceimpl implements CertificateService {
 	public SignUpForm checkEmail(SignUpForm signUp) {
 		
 		if (certificateRepository.existsByEmail(signUp.getEmail())) {
-		    throw new IllegalStateException("このメールアドレスは既に登録されています。");
+			throw new IllegalStateException("このメールアドレスは既に登録されています。");
 		}else {
 			return signUp;
 		}

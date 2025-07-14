@@ -93,16 +93,16 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/signup")
-	public String signUp(@Validated @ModelAttribute("singUpForm") SignUpForm signUp, Model model, BindingResult errorResult) {
+	public String signUp(@Validated @ModelAttribute("signUpForm") SignUpForm signUp, Model model, BindingResult errorResult) {
 		
-		// エラーがなければ
+		// エラーがあれば登録画面に戻す
 		if(errorResult.hasErrors()) {
 			return "signUp";
 		}
 		// emailに重複がないか確認
 		SignUpForm signUpForm = certificateService.checkEmail(signUp); 
 		
-		// 登録処理を書く
+		// 登録処理
 		certificateService.saveAdminInfo(signUpForm);
 		
 		return "redirect:/admin/signin";
@@ -120,19 +120,20 @@ public class AdminController {
 	@PostMapping("/admin/signin")
 	public String signIn(@Validated @ModelAttribute("singInForm") SignInForm signIn, Model model, BindingResult errorResult) {
 		
-		// エラーがなければ
+		// エラーがあればサインイン画面に戻す
 		if(errorResult.hasErrors()) {
 			return "signIn";
 		}
-		
+		// Email及びパスワードによる認証
 		certificateService.certificateAccount(signIn);
-		
+		// 認証が通ったら一覧画面へリダイレクト
 		return "redirect:/admin/contacts";
 	}
 	
 	@PostMapping("/admin/signout")
 	public String signOut(Model model) {
-        return "redirect:/admin/signin"; 
+		// サインアウトしたらサインイン画面へリダイレクト
+		return "redirect:/admin/signin";
     }
 
 }
